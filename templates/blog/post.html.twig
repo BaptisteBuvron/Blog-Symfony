@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 
+{% block title %} {{ article.title }} {% endblock %}
 
 {% block body %}
 
@@ -35,6 +36,9 @@
                         <div class="blog-post-format">
                             <span><img src="/images/administrateur-homme.png" class="img-responsive img-circle"> Les Rillettes Forts et Verts,</span>
                             <span> {{ article.updatedAt | ago }}</span>
+                            {% if article.galleries.count > 0 %}
+                            <a href="{{ path('galerie.show', {id: article.id , slug: article.slug })}}" class="btn btn-default">Album photo</a>
+                            {% endif %}
                         </div>
 
                         <div class="blog-post-des">{{ article.content | raw }}</div>
@@ -46,58 +50,30 @@
 
                         <div class="blog-comment">
                             <h3>Commentaires</h3>
+                            {% for comment in article.comments %}
                             <div class="media">
                                 <div class="media-object pull-left">
                                     <img src="/images/default-avatar.png" class="img-responsive img-circle" alt="Blog Image 11">
                                 </div>
                                 <div class="media-body">
-                                    <h3 class="media-heading">David Jones</h3>
-                                    <span>3 days ago</span>
-                                    <p>Aliquam gravida arcu at risus blandit, in interdum metus varius. Cras efficitur, ex sit amet tincidunt rhoncus, dui ex hendrerit risus, ac dapibus ligula mi id leo. In auctor dui justo, ac consequat dui posuere ac.</p>
+                                    <h3 class="media-heading">{{ comment.author }}</h3>
+                                    <span>{{ comment.publishedAt | ago }}</span>
+                                    <p>{{ comment.content | raw }}</p>
                                 </div>
                             </div>
-                            <div class="media">
-                                <div class="media-object pull-left">
-                                    <img src="/images/default-avatar.png" class="img-responsive img-circle" alt="Blog Image 22">
-                                </div>
-                                <div class="media-body">
-                                    <h3 class="media-heading">Omar Larus</h3>
-                                    <span>5 days ago</span>
-                                    <p>Maecenas ultricies ante dignissim, iaculis ligula sed, gravida ipsum. Pellentesque lobortis velit mi, sed volutpat enim facilisis.</p>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <div class="media-object pull-left">
-                                    <img src="/images/default-avatar.png" class="img-responsive img-circle" alt="Blog Image 33">
-                                </div>
-                                <div class="media-body">
-                                    <h3 class="media-heading">Walker Jen</h3>
-                                    <span>July 27, 2017</span>
-                                    <p>In eu posuere nulla, sit amet semper lectus. Aliquam gravida arcu at risus blandit, in interdum metus varius. Cras efficitur, ex sit amet tincidunt rhoncus, dui ex hendrerit risus, ac dapibus ligula mi id leo.</p>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <div class="media-object pull-left">
-                                    <img src="/images/default-avatar.png" class="img-responsive img-circle" alt="Blog Image 44">
-                                </div>
-                                <div class="media-body">
-                                    <h3 class="media-heading">Jen Lopez</h3>
-                                    <span>July 24, 2017</span>
-                                    <p>In auctor dui justo, ac consequat dui posuere ac. Lorem ipsum dolor sit amet, maecenas eget vestibulum justo imperdiet, wisi risus purus augue vulputate voluptate neque, curabitur.</p>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
 
                         <div class="blog-comment-form">
-                            <h3>Leave a Comment</h3>
-                            <form action="#" method="post">
-                                <input type="text" class="form-control" placeholder="Name" name="name" required>
-                                <input type="email" class="form-control" placeholder="Email" name="email" required>
-                                <textarea name="message" rows="5" class="form-control" id="message" placeholder="Message" message="message" required="required"></textarea>
-                                <div class="col-md-3 col-sm-4">
-                                    <input name="submit" type="submit" class="form-control" id="submit" value="Post Your Comment">
-                                </div>
-                            </form>
+                            <h3>Laisse un commentaire</h3>
+
+
+                            {{ form_start(form) }}
+                            {{ form_widget(form) }}
+                            <div class="col-md-3 col-sm-4">
+                                    <input name="submit" type="submit" class="form-control" id="submit" value="Poster votre commentaire">
+                            </div>
+                            {{ form_end(form) }}
                         </div>
                     </div>
                 </div>

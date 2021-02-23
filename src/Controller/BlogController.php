@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Comment;
+use App\Form\CommentType;
 use App\Repository\ArticleRepository;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,9 +18,13 @@ class BlogController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(ArticleRepository $articleRepository): Response
+    public function index(ArticleRepository $articleRepository, PaginatorInterface  $paginator, Request $request): Response
     {
-        $articles = $articleRepository->findAll();
+        $articles = $paginator->paginate(
+            $articleRepository->findAllVisibleQuery(),
+            $request->query->getInt('page', 1),
+            5
+        );
 
 
         return $this->render('blog/index.html.twig', [
@@ -30,7 +37,7 @@ class BlogController extends AbstractController
      * @param Article $article
      * @return Response
      */
-    public function post(Article $article, String $slug): Response
+    public function post(Article $article, String $slug, Request  $request, EntityManagerInterface $manager): Response
     {
         if ($article->getSlug() !== $slug){
 
@@ -39,9 +46,43 @@ class BlogController extends AbstractController
                 'slug' => $article->getSlug()
             ],301);
         }
+        $comment = new Comment();
+
+        $form = $this->createForm(CommentType::class,$comment);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $comment->setArticle($article);
+            $manager->persist($comment);
+            $manager->flush();
+
+        }
+
 
         return $this->render('blog/post.html.twig',[
-            'article' => $article
+            'article' => $article,
+            'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/galerie/{slug}-{id}", name="galerie.show", requirements={"slug": "[a-z0-9\-]*"})
+     */
+    public function gallery(Article $article, String $slug){
+        if ($article->getSlug() !== $slug){
+
+            return $this->redirectToRoute('galerie.show',[
+                'id' => $article->getId(),
+                'slug' => $article->getSlug()
+            ],301);
+        }
+        if ($article->getGalleries()->isEmpty()){
+            return $this->redirectToRoute('article.show',['id' => $article->getId(), 'slug' => $article->getSlug()],301);
+        }
+
+        return $this->render('blog/gallery.html.twig',[
+            'article' => $article]
+       );
     }
 }

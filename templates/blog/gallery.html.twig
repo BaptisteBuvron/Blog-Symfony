@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Gallerie :  {{ article.title }} {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/css/gallery.css">
+    <link rel="stylesheet" href="/js/lightGallery/src/css/lightgallery.css">
+{% endblock %}
+
+{% block javascript %}
+{{ parent() }}
+    <script src="/js/lightGallery/src/js/lightgallery.js"></script>
+    <script src="/js/lightGallery/modules/lg-thumbnail.js"></script>
+    <script src="/js/lightGallery/modules/lg-zoom.js"></script>
+    <script src="/js/lightGallery/modules/lg-autoplay.js"></script>
+    <script src="/js/lightGallery/modules/lg-fullscreen.js"></script>
+    <script src="/js/lightGallery/modules/lg-pager.js"></script>
+    <script src="/js/lightGallery/modules/lg-hash.js"></script>
+    <script>
+    var navSet = false;
+
+
+        $(document).ready(function() {
+
+            $("#lightGallery").lightGallery({
+                thumbnail: true
+            });
+            $('#lightGallery').lightGallery({
+            subHtmlSelectorRelative: true
+        });
+
+            $('#lightGallery img').each(function() { //you need to put this inside the window.onload-function (not document.ready), otherwise the image dimensions won't be available yet
+                if ($(this).width() / $(this).height() >= 1) {
+                    $(this).addClass('landscape');
+                } else {
+                    $(this).addClass('portrait');
+                }
+            });
+
+
+
+
+
+
+
+        });
+</script>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+            <div id="lightGallery">
+                {% for image in article.galleries %}
+                    <a href="{{ vich_uploader_asset(image, 'imageFile') }}"
+                       data-sub-html="<h4>{{ image.title }}</h4><p>{{ image.caption }}</p>">
+                        <img src="{{ vich_uploader_asset(image, 'imageFile') }}" alt="">
+                    </a>
+
+                {% endfor %}
+
+            </div>
+
+
+    </div>
+
+
+
+{% endblock %}

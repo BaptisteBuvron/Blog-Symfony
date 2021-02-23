@@ -4,8 +4,10 @@ namespace App\Controller\Admin;
 
 use App\Entity\Article;
 use App\Form\GalleryType;
+use Doctrine\DBAL\Types\BooleanType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
@@ -31,7 +33,7 @@ class ArticleCrudController extends AbstractCrudController
         $fiedls = [
             TextField::new('title','Titre'),
             TextField::new('introduction','Introduction'),
-            TextareaField::new('content', 'Contenu')->setFormType(CKEditorType::class),
+            TextEditorField::new('content', 'Contenu')->setFormType(CKEditorType::class),
             CollectionField::new('galleries', 'Les images')
                 ->setEntryType(GalleryType::class)
                 ->onlyOnForms()
@@ -43,6 +45,8 @@ class ArticleCrudController extends AbstractCrudController
         else{
             $fiedls[] = $imageFile;
         }
+        $fiedls[] = BooleanField::new('isPublished', "Publié");
+
         return $fiedls;
     }
 

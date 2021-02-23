@@ -1,0 +1,55 @@
+body{
+    margin: center;
+}
+
+#lightGallery img {
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);
+    margin:20px;
+    display: none;
+}  
+ 
+#lightGallery img.landscape {
+    max-width:500px;
+    width: 100%;
+    height:auto;
+    display: block;
+
+}
+
+#lightGallery img.portrait {
+    max-height: 400px;
+    width:auto; 
+    height:100%;
+    display: block;
+
+} 
+
+#lightGallery{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    
+
+}
+
+
+
+
+#gallery{
+    text-align: center;
+}
+ 
+h1{
+    text-align: center;
+    margin: 5px;
+}
+h4{
+    color: white;
+    font-size: 18px;
+}
+
+p{
+    color: white;
+}

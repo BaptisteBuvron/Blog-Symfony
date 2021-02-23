@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Article;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -35,6 +36,16 @@ class ArticleRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return Query
+     */
+    public function findAllVisibleQuery() : Query{
+        return $this->createQueryBuilder('a')
+            ->where('a.isPublished = 1')
+            ->orderBy('a.publishedAt', 'DESC')
+            ->getQuery();
+    }
 
     /*
     public function findOneBySomeField($value): ?Article
