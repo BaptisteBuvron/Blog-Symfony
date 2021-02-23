@@ -55,7 +55,7 @@ p {
   color: black;
   font-family: 'Sarabun', serif;
   font-size: 18px;
-  font-weight: 300;
+  font-weight: 550;
   line-height: 26px;
   letter-spacing: 0.2px;
 }
@@ -134,6 +134,9 @@ a:hover, a:active, a:focus {
   background-attachment: fixed !important;
   background-size: cover !important;
   overflow: hidden;
+  background-position: center !important;
+
+
 }
 
 
@@ -807,3 +810,18 @@ img.sgdf {
 
 }
 
+/* AJout */
+
+.img-responsive{
+  max-width: 80%;
+  max-height: 600px;
+}
+
+.center{
+  margin: auto;
+}
+
+.content{
+  font-size: 18px;
+  font-weight: normal;
+}

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ArticleRepository;
+use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -66,6 +67,11 @@ class Article
      * @ORM\OneToMany(targetEntity=Gallery::class, mappedBy="article", orphanRemoval=true, cascade={"persist"})
      */
     private $galleries;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
 
     public function __construct()
     {
@@ -172,14 +178,23 @@ class Article
     /**
      * @ORM\PrePersist()
      */
-    public function prePersistSetDatePublished(){
-        if ($this->publishedAt == null){
+    public function prePersistSetDatePublished()
+    {
+        if ($this->publishedAt == null) {
             $this->publishedAt = new \DateTime('now');
         }
 
         if ($this->updatedAt == null) {
             $this->updatedAt = new \DateTime('now');
         }
+    }
+
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function preUpdateSetUpdatedDate()
+    {
+        $this->updatedAt = new \DateTime('now');
     }
 
     /**
@@ -212,6 +227,33 @@ class Article
         return $this;
     }
 
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Permet d'initialiser le slug
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function intitializeSlug()
+    {
+        if (empty($this->slug)) {
+            $slugify = new Slugify();
+            $this->slug = $slugify->slugify($this->title);
 
 
+        }
+    }
 }

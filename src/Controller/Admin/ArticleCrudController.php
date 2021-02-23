@@ -11,11 +11,13 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use Symfony\Component\DomCrawler\Image;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ArticleCrudController extends AbstractCrudController
 {
+
+
     public static function getEntityFqcn(): string
     {
         return Article::class;
@@ -28,8 +30,8 @@ class ArticleCrudController extends AbstractCrudController
         $image =  ImageField::new('imageName', 'image')->setBasePath('/images/article')->setTemplatePath('/easyadmin/vich_uploader_image.html.twig');
         $fiedls = [
             TextField::new('title','Titre'),
-            TextEditorField::new('introduction','Introduction'),
-            TextEditorField::new('content', 'Contenu'),
+            TextField::new('introduction','Introduction'),
+            TextareaField::new('content', 'Contenu')->setFormType(CKEditorType::class),
             CollectionField::new('galleries', 'Les images')
                 ->setEntryType(GalleryType::class)
                 ->onlyOnForms()
@@ -42,6 +44,16 @@ class ArticleCrudController extends AbstractCrudController
             $fiedls[] = $imageFile;
         }
         return $fiedls;
+    }
+
+    /**
+     * Ajout du thème formulaire de Ckeditor
+     * @param Crud $crud
+     * @return Crud
+     */
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig');
     }
 
 }
