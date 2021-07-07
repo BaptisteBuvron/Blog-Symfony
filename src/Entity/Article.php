@@ -268,7 +268,6 @@ class Article
             $slugify = new Slugify();
             $this->slug = $slugify->slugify($this->title);
 
-
         }
     }
 
