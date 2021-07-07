@@ -49,7 +49,6 @@ class ArticleCrudController extends AbstractCrudController
             $fiedls[] = $imageFile;
         }
         $fiedls[] = BooleanField::new('isPublished', "Publié");
-        dump($pageName);
         if ($pageName != Crud::PAGE_NEW){
             $fiedls[] = DateTimeField::new('publishedAt',"Date de publication");
         }
