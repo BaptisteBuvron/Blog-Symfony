@@ -57,7 +57,6 @@ p {
   color: black;
   font-family: 'Sarabun', serif;
   font-size: 18px;
-  font-weight: 550;
   line-height: 26px;
   letter-spacing: 0.2px;
 }
@@ -443,6 +442,8 @@ a:hover, a:active, a:focus {
   transition: all 0.4s ease-in-out;
 }
 
+
+
 #contact .form-control:hover {
   border-color: #555;
 }
@@ -599,8 +600,11 @@ a:hover, a:active, a:focus {
   border: 2px solid #f0f0f0;
   margin-top: 10px;
   margin-bottom: 10px;
+  font-size: 16px;
   transition: all 0.4s ease-in-out;
 }
+
+
 
 .blog-comment-form .form-control:hover {
   border-color: #555;
@@ -827,4 +831,20 @@ img.sgdf {
 .content{
   font-size: 18px;
   font-weight: normal;
+}
+
+img.landscape {
+  max-width:500px;
+  width: 100%;
+  height:auto;
+  display: block;
+
+}
+
+img.portrait {
+  max-height: 400px;
+  width:auto;
+  height:100%;
+  display: block;
+
 }

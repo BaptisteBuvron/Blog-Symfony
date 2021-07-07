@@ -9,7 +9,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -31,6 +33,7 @@ class ArticleCrudController extends AbstractCrudController
         $imageFile = TextareaField::new('imageFile', "L'image")->setFormType(VichImageType::class);
         $image =  ImageField::new('imageName', 'image')->setBasePath('/images/article')->setTemplatePath('/easyadmin/vich_uploader_image.html.twig');
         $fiedls = [
+            NumberField::new('id')->onlyOnIndex(),
             TextField::new('title','Titre'),
             TextField::new('introduction','Introduction'),
             TextEditorField::new('content', 'Contenu')->setFormType(CKEditorType::class),
@@ -46,6 +49,7 @@ class ArticleCrudController extends AbstractCrudController
             $fiedls[] = $imageFile;
         }
         $fiedls[] = BooleanField::new('isPublished', "Publié");
+        $fiedls[] = DateTimeField::new('publishedAt',"Date de publication");
 
         return $fiedls;
     }

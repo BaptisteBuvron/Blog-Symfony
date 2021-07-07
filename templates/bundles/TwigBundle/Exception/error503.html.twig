@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur 404 {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div style="margin: 50px">
+            <h1>Vous n'avez pas le droit d'accéder à cette page.</h1>
+            <a href="{{ path('home') }}" class="btn btn-primary">Retour a l'accueil</a>
+        </div>
+
+
+    </div>
+{% endblock %}

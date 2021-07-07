@@ -6,6 +6,7 @@ use App\Entity\Article;
 use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Repository\ArticleRepository;
+use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,8 +16,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class BlogController extends AbstractController
 {
+
+
+
+
     /**
      * @Route("/", name="home")
+     * @param ArticleRepository $articleRepository
+     * @param PaginatorInterface $paginator
+     * @param Request $request
+     * @return Response
      */
     public function index(ArticleRepository $articleRepository, PaginatorInterface  $paginator, Request $request): Response
     {
@@ -37,7 +46,7 @@ class BlogController extends AbstractController
      * @param Article $article
      * @return Response
      */
-    public function post(Article $article, String $slug, Request  $request, EntityManagerInterface $manager): Response
+    public function post(Article $article, String $slug, Request  $request, EntityManagerInterface $manager, PaginatorInterface $paginator, CommentRepository $commentRepository): Response
     {
         if ($article->getSlug() !== $slug){
 
@@ -46,6 +55,11 @@ class BlogController extends AbstractController
                 'slug' => $article->getSlug()
             ],301);
         }
+
+        $comments = $paginator->paginate($commentRepository->findAllValidCommentsQuery($article),
+            $request->query->getInt('page', 1),
+            12
+        );
         $comment = new Comment();
 
         $form = $this->createForm(CommentType::class,$comment);
@@ -56,12 +70,14 @@ class BlogController extends AbstractController
             $comment->setArticle($article);
             $manager->persist($comment);
             $manager->flush();
-
+            $this->addFlash('success','Votre commentaire a été publié. Il sera rendu publique après vérification.');
+            return $this->redirect($request->getUri());
         }
 
 
         return $this->render('blog/post.html.twig',[
             'article' => $article,
+            'comments' => $comments,
             'form' => $form->createView()
         ]);
     }

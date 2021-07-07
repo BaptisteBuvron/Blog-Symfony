@@ -8,12 +8,14 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Router\CrudUrlGenerator;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class BlogDashboardController extends AbstractDashboardController
 {
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/admin", name="admin")
      */
     public function index(): Response
@@ -32,7 +34,7 @@ class BlogDashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Article', 'fas fa-list', Article::class);
-        yield MenuItem::linkToCrud('Comment', 'fas fa-list', Comment::class);
+        yield MenuItem::linkToCrud('Articles', 'fas fa-list', Article::class);
+        yield MenuItem::linkToCrud('Commentaires', 'fas fa-list', Comment::class);
     }
 }

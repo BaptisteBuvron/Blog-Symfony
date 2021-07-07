@@ -39,6 +39,11 @@ class Comment
      */
     private $content;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $valid;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -97,5 +102,20 @@ class Comment
      */
     public function prePersistSetPublishedDate(){
         $this->publishedAt = new \DateTime('now');
+        if (is_null($this->valid)){
+            $this->valid = false;
+        }
+    }
+
+    public function getValid(): ?bool
+    {
+        return $this->valid;
+    }
+
+    public function setValid(bool $valid): self
+    {
+        $this->valid = $valid;
+
+        return $this;
     }
 }

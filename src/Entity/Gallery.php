@@ -25,7 +25,7 @@ class Gallery
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $title;
 
@@ -48,7 +48,7 @@ class Gallery
     /**
      * @Vich\UploadableField(mapping="gallery_image" , fileNameProperty="imageName")
      * @var File
-     * @Assert\File
+     * @Assert\File(maxSize="8M", mimeTypes={"image/jpeg","image/jpg","image/png","image/webp"} )
      */
     private $imageFile;
 

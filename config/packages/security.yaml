@@ -1,7 +1,15 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    encoders:
+        Symfony\Component\Security\Core\User\User: bcrypt
     providers:
-        users_in_memory: { memory: null }
+        users_in_memory:
+            memory:
+                users:
+                    admin:
+                        password : $2y$13$Ov/XVAQk.SfL9E/dNDnI0eYnIuARNPVn/oNld/xGcHHYOB0GSMXUK
+                        roles: ['ROLE_USER','ROLE_ADMIN']
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -10,6 +18,14 @@ security:
             anonymous: true
             lazy: true
             provider: users_in_memory
+            form_login:
+                login_path: account_login
+                check_path: account_login
+                always_use_default_target_path: true
+                default_target_path: admin
+            logout:
+                path: account_logout
+                target: account_login
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

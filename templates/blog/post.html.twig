@@ -35,7 +35,7 @@
 
                         <div class="blog-post-format">
                             <span><img src="/images/administrateur-homme.png" class="img-responsive img-circle"> Les Rillettes Forts et Verts,</span>
-                            <span> {{ article.updatedAt | ago }}</span>
+                            <span> {{ article.publishedAt | ago }}</span>
                             {% if article.galleries.count > 0 %}
                             <a href="{{ path('galerie.show', {id: article.id , slug: article.slug })}}" class="btn btn-default">Album photo</a>
                             {% endif %}
@@ -48,9 +48,10 @@
 
 
 
+                        {% if comments.count > 0 %}
                         <div class="blog-comment">
                             <h3>Commentaires</h3>
-                            {% for comment in article.comments %}
+                            {% for comment in comments %}
                             <div class="media">
                                 <div class="media-object pull-left">
                                     <img src="/images/default-avatar.png" class="img-responsive img-circle" alt="Blog Image 11">
@@ -63,6 +64,10 @@
                             </div>
                             {% endfor %}
                         </div>
+                        {% endif %}
+                        <div class="center">
+                            {{ knp_pagination_render(comments) }}
+                        </div>
 
                         <div class="blog-comment-form">
                             <h3>Laisse un commentaire</h3>
@@ -71,7 +76,7 @@
                             {{ form_start(form) }}
                             {{ form_widget(form) }}
                             <div class="col-md-3 col-sm-4">
-                                    <input name="submit" type="submit" class="form-control" id="submit" value="Poster votre commentaire">
+                                    <button type="submit" class="btn" style="background-color: #003a5d; color: white; border-radius: 100px;border: none;" id="submit">Poster votre commentaire</button>
                             </div>
                             {{ form_end(form) }}
                         </div>

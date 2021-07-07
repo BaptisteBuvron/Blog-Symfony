@@ -9,6 +9,16 @@ body{
     display: none;
 }  
  
+
+
+#lightGallery{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    
+
+}
 #lightGallery img.landscape {
     max-width:500px;
     width: 100%;
@@ -19,18 +29,9 @@ body{
 
 #lightGallery img.portrait {
     max-height: 400px;
-    width:auto; 
+    width:auto;
     height:100%;
     display: block;
-
-} 
-
-#lightGallery{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    
 
 }
 

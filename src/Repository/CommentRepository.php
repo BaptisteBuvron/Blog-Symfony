@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Article;
 use App\Entity\Comment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,6 +19,28 @@ class CommentRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Comment::class);
+    }
+
+
+    /**
+     * @return Comment[]
+     */
+    public function findAllValid(): array
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.valid = 1')
+            ->orderBy('a.publishedAt', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Query
+     */
+    public function findAllValidCommentsQuery(Article $article) : Query{
+        return $this->getEntityManager()->createQuery(
+            "SELECT c FROM App:Article a JOIN App:Comment c WHERE c.valid = 1 AND a.id = :id AND a.id = c.article ORDER BY c.publishedAt DESC"
+        )->setParameter('id', $article->getId());
     }
 
     // /**
