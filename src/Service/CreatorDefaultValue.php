@@ -36,7 +36,7 @@ class CreatorDefaultValue
             $customisation->setDescription('Default description');
             $customisation->setLittleDescription('Default little description');
             $customisation->setIsActive(true);
-            $customisation->setImageFile(new UploadedFile($dir.'\public\images\custom\default.png', 'default.png', null, null, true));
+            $customisation->setImageFile(new UploadedFile($dir.'/public/images/custom/default.png', 'default.png', null, null, true));
             $customisation->setInsta('https://www.instagram.com/');
             $customisation->setFacebook('https://www.facebook.com/');
             $customisation->setEmail("email@email.fr");
