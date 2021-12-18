@@ -48,7 +48,8 @@ class Gallery
     /**
      * @Vich\UploadableField(mapping="gallery_image" , fileNameProperty="imageName")
      * @var File
-     * @Assert\File(maxSize="8M", mimeTypes={"image/jpeg","image/jpg","image/png","image/webp"} )
+     * @Assert\File(maxSize="15M", mimeTypes={"image/jpeg","image/jpg","image/png","image/webp"} )
+     * @Assert\NotBlank (message="Please, upload the image.")
      */
     private $imageFile;
 

@@ -6,15 +6,15 @@
 
     <!-- Home Section -->
 
-    <section id="home" class="main-home parallax-section">
+    <section id="home" class="main-home parallax-section" style="background: url({{ vich_uploader_asset(custom, 'imageFile') }}) no-repeat;">
         <div class="overlay"></div>
         <div id="particles-js"></div>
         <div class="container">
             <div class="row">
 
                 <div class="col-md-12 col-sm-12">
-                    <h1>Rillettes forts et verts</h1>
-                    <h4>Equipe compagnon de la 14e Le Mans</h4>
+                    <h1>{{ custom.title }}</h1>
+                    <h4>{{ custom.littleDescription }}</h4>
                     <a href="#blog" class="smoothScroll btn btn-default">Découvrir</a>
                 </div>
 
@@ -51,7 +51,7 @@
                                 </h3>
                             </div>
                             <div class="blog-post-format">
-                                <span><img src="images/administrateur-homme.png" class="img-responsive img-circle"> Les Rillettes Forts et Verts,</span>
+                                <span><img src="images/administrateur-homme.png" class="img-responsive img-circle"> Les {{ custom.title }},</span>
                                 <span>publié {{ article.publishedAt | ago }}</span>
                             </div>
                             <div class="blog-post-des">

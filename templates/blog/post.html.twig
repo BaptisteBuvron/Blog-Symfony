@@ -34,10 +34,10 @@
                         </div>
 
                         <div class="blog-post-format">
-                            <span><img src="/images/administrateur-homme.png" class="img-responsive img-circle"> Les Rillettes Forts et Verts,</span>
+                            <span><img src="/images/administrateur-homme.png" class="img-responsive img-circle"> Les {{ custom.title }},</span>
                             <span> {{ article.publishedAt | ago }}</span>
                             {% if article.galleries.count > 0 %}
-                            <a href="{{ path('galerie.show', {id: article.id , slug: article.slug })}}" class="btn btn-default">Album photo</a>
+                            <a href="{{ path('galerie.show', {id: article.id , slug: article.slug })}}" target="_blank" rel="noopener noreferrer" class="btn btn-default">Album photo</a>
                             {% endif %}
                         </div>
 

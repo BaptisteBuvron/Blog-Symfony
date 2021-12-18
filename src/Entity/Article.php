@@ -45,14 +45,14 @@ class Article
     private $content;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $imageName;
 
     /**
      * @var File
      * @Vich\UploadableField(mapping="article_image", fileNameProperty="imageName")
-     * @Assert\File(maxSize="8M", mimeTypes={"image/jpeg","image/jpg","image/png","image/webp"} )
+     * @Assert\File(maxSize="15M", mimeTypes={"image/jpeg","image/jpg","image/png","image/webp"} )
      */
     private $imageFile;
 
@@ -67,7 +67,7 @@ class Article
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Gallery::class, mappedBy="article", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Gallery::class, mappedBy="article", orphanRemoval=true, cascade={"remove", "persist"})
      */
     private $galleries;
 

@@ -70,7 +70,7 @@ class BlogController extends AbstractController
             $comment->setArticle($article);
             $manager->persist($comment);
             $manager->flush();
-            $this->addFlash('success','Votre commentaire a été publié. Il sera rendu publique après vérification.');
+            $this->addFlash('success','Votre commentaire a été publié. Il sera rendu public après vérification.');
             return $this->redirect($request->getUri());
         }
 

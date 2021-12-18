@@ -11,25 +11,29 @@
             </div>
 
             <div class="col-md-4  col-sm-4">
-                <h3>Rillettes forts et verts</h3>
-                <p>Nous sommes l'équipe Compagnon du groupe de la XIV le Mans Cathédrale St Julien.</p>
+                <h3>{{ custom.title }}</h3>
+                <p>{{ custom.description | raw}}</p>
                 <div class="footer-copyright">
-                    <p>Copyright &copy; 2020 Rillettes forts et verts - Design: <a href="https://www.tooplate.com/">Tooplate</a> </p>
+                    <p>Copyright &copy; 2020 {{ custom.title }} - Design: <a href="https://www.tooplate.com/">Tooplate</a> </p>
                 </div>
             </div>
 
             <div class="col-md-4  col-sm-4">
                 <h3>Nous contacter</h3>
                 <p>Sur nos réseaux sociaux</p>
-                <p><i class="fa fa-mail-forward"></i> rillettesfortsetverts@gmail.com</p>
+                <p><i class="fa fa-mail-forward"></i> {{ custom.email }}</p>
             </div>
 
 
 
             <div class="col-md-12 col-sm-12">
                 <ul class="social-icon">
-                    <li><a href="https://www.facebook.com/rillettesfortsetverts" class="fa fa-facebook"></a></li>
-                    <li><a href="https://www.instagram.com/rillettes_forts_et_verts/" class="fa fa-instagram"></a></li>
+                    {% if custom.facebook %}
+                    <li><a href="{{ custom.facebook }}" class="fa fa-facebook"></a></li>
+                    {% endif %}
+                    {% if custom.insta %}
+                    <li><a href="{{ custom.insta }}" class="fa fa-instagram"></a></li>
+                    {% endif %}
                 </ul>
             </div>
 
