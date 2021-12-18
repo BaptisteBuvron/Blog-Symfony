@@ -30,7 +30,7 @@ class CreatorDefaultValue
         if (is_null($customisation)){
             $dir = $this->kernel->getProjectDir();
             $fileSystem = new Filesystem();
-            $fileSystem->copy($dir . '\public\images\default.png', $dir . '\public\images\custom\default.png');
+            $fileSystem->copy($dir . '/public/images/default.png', $dir . '/public/images/custom/default.png');
             $customisation = new Customisation();
             $customisation->setTitle('Default title');
             $customisation->setDescription('Default description');
