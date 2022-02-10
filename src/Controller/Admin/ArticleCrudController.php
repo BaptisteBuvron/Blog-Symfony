@@ -32,6 +32,7 @@ class ArticleCrudController extends AbstractCrudController
     {
         $imageFile = TextareaField::new('imageFile', "L'image")->setFormType(VichImageType::class);
         $image =  ImageField::new('imageName', 'image')->setBasePath('/images/article')->setTemplatePath('/easyadmin/vich_uploader_image.html.twig');
+       //TODO FIX CKEDITOR
         $fiedls = [
             NumberField::new('id')->onlyOnIndex(),
             TextField::new('title','Titre'),
@@ -42,14 +43,14 @@ class ArticleCrudController extends AbstractCrudController
                 ->onlyOnForms()
 
         ];
-        if ($pageName == Crud::PAGE_INDEX || $pageName == Crud::PAGE_DETAIL){
+        if ($pageName === Crud::PAGE_INDEX || $pageName === Crud::PAGE_DETAIL){
             $fiedls[] = $image;
         }
         else{
             $fiedls[] = $imageFile;
         }
         $fiedls[] = BooleanField::new('isPublished', "Publié?");
-        if ($pageName != Crud::PAGE_NEW){
+        if ($pageName !== Crud::PAGE_NEW){
             $fiedls[] = DateTimeField::new('publishedAt',"Date de publication");
         }
 

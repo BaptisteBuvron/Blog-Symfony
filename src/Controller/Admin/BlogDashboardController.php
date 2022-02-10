@@ -8,6 +8,7 @@ use App\Entity\Customisation;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use EasyCorp\Bundle\EasyAdminBundle\Router\CrudUrlGenerator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +16,15 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class BlogDashboardController extends AbstractDashboardController
 {
+
+    private AdminUrlGenerator $adminUrlGenerator;
+
+    public function __construct(AdminUrlGenerator $adminUrlGenerator)
+    {
+        $this->adminUrlGenerator = $adminUrlGenerator;
+    }
+
+
     /**
      * @IsGranted("ROLE_ADMIN")
      * @Route("/admin", name="admin")
@@ -22,8 +32,8 @@ class BlogDashboardController extends AbstractDashboardController
     public function index(): Response
     {
 
-        $routeBuilder = $this->get(CrudUrlGenerator::class)->build();
-        return $this->redirect($routeBuilder->setController(ArticleCrudController::class)->generateUrl());
+        $url = $this->adminUrlGenerator->setController(ArticleCrudController::class)->generateUrl('list');
+        return $this->redirect($url);
     }
 
     public function configureDashboard(): Dashboard

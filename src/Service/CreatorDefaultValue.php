@@ -24,7 +24,8 @@ class CreatorDefaultValue
     /**
      * create a default customisation active if no active customisation exist
      */
-    public function createDefaultCustomisationIfNotExist(){
+    public function createDefaultCustomisationIfNotExist(): void
+    {
         $customisationRepo = $this->em->getRepository(Customisation::class);
         $customisation = $customisationRepo->findOneBy(['isActive' => true]);
         if (is_null($customisation)){
