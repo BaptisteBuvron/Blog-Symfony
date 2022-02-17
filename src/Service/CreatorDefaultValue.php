@@ -32,11 +32,13 @@ class CreatorDefaultValue
             $dir = $this->kernel->getProjectDir();
             $fileSystem = new Filesystem();
             $fileSystem->copy($dir . '/public/images/default.png', $dir . '/public/images/custom/default.png');
+            $fileSystem->copy($dir . '/public/images/defaultLogo.png', $dir . '/public/images/logo/defaultLogo.png');
             $customisation = new Customisation();
             $customisation->setTitle('Default title');
             $customisation->setDescription('Default description');
             $customisation->setLittleDescription('Default little description');
             $customisation->setIsActive(true);
+            $customisation->setLogoFile(new UploadedFile($dir.'/public/images/logo/defaultLogo.png', 'defaultLogo.png', null, null, true));
             $customisation->setImageFile(new UploadedFile($dir.'/public/images/custom/default.png', 'default.png', null, null, true));
             $customisation->setInsta('https://www.instagram.com/');
             $customisation->setFacebook('https://www.facebook.com/');

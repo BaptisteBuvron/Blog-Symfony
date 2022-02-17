@@ -29,29 +29,20 @@ class CustomisationCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-
-        $fields = [
+        return [
             TextField::new('title', "Titre"),
+            TextareaField::new('logoFile', "Le logo")->onlyOnForms()->setFormType(VichImageType::class),
+            ImageField::new('logoName', 'logo')->onlyOnDetail()->onlyOnIndex()->setBasePath('/images/logo')->setTemplatePath('/easyadmin/vich_uploader_logo.html.twig'),
             TextField::new('littleDescription', "Petite description"),
             TextEditorField::new('description', "Description"),
             EmailField::new('email', "Email"),
-            UrlField::new('insta','Instagram'),
-            UrlField::new('facebook','Facebook'),
-            AssociationField::new('presentationArticle')->autocomplete()
-        ];
-        $imageFile = TextareaField::new('imageFile', "L'image")->setFormType(VichImageType::class);
-        $image =  ImageField::new('imageName', 'image')->setBasePath('/images/custom')->setTemplatePath('/easyadmin/vich_uploader_image.html.twig');
-        if ($pageName == Crud::PAGE_INDEX || $pageName == Crud::PAGE_DETAIL) {
-            $fields[] = $image;
-        }
-        else {
-            $fields[] = $imageFile;
-        }
-        array_push($fields,
-            TextareaField::new('imageFile', "L'image")->setFormType(VichImageType::class),
+            UrlField::new('insta', 'Instagram'),
+            UrlField::new('facebook', 'Facebook'),
+            AssociationField::new('presentationArticle')->autocomplete(),
+            ImageField::new('imageName', 'image')->onlyOnDetail()->onlyOnIndex()->setBasePath('/images/custom')->setTemplatePath('/easyadmin/vich_uploader_image.html.twig'),
+            TextareaField::new('imageFile', "L'image")->onlyOnForms()->setFormType(VichImageType::class),
             BooleanField::new('isActive', "Actif?")
-        );
-        return $fields;
+        ];
     }
 
 }
