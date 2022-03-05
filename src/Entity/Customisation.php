@@ -29,6 +29,11 @@ class Customisation
     private $logoName;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true, unique=true)
+     */
+    private $codeAuth;
+
+    /**
      * @var File
      * @Vich\UploadableField(mapping="custom_logo", fileNameProperty="logoName")
      * @Assert\File(maxSize="15M", mimeTypes={"image/jpeg","image/jpg","image/png","image/webp"} )
@@ -124,6 +129,22 @@ class Customisation
     public function setLogoName($logoName): void
     {
         $this->logoName = $logoName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCodeAuth()
+    {
+        return $this->codeAuth;
+    }
+
+    /**
+     * @param mixed $codeAuth
+     */
+    public function setCodeAuth($codeAuth): void
+    {
+        $this->codeAuth = $codeAuth;
     }
 
     /**

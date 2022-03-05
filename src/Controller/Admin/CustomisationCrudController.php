@@ -11,12 +11,14 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\HiddenField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class CustomisationCrudController extends AbstractCrudController
@@ -41,6 +43,7 @@ class CustomisationCrudController extends AbstractCrudController
             AssociationField::new('presentationArticle')->autocomplete(),
             ImageField::new('imageName', 'image')->onlyOnDetail()->onlyOnIndex()->setBasePath('/images/custom')->setTemplatePath('/easyadmin/vich_uploader_image.html.twig'),
             TextareaField::new('imageFile', "L'image")->onlyOnForms()->setFormType(VichImageType::class),
+            TextField::new('codeAuth', "Code d'authentification")->onlyOnForms(),
             BooleanField::new('isActive', "Actif?")
         ];
     }

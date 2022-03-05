@@ -23,7 +23,7 @@ class ImageController extends AbstractController
 
     #[Route('/pictures/articles/{img}', name: 'picture_article')]
     /**
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_USER")
      */
     public function article(string $img): Response
     {
@@ -41,7 +41,7 @@ class ImageController extends AbstractController
 
     #[Route('/pictures/galleries/{img}', name: 'picture_gallerie')]
     /**
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_USER")
      */
     public function galleries(string $img): Response
     {

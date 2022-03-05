@@ -9,6 +9,7 @@ use App\Repository\ArticleRepository;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,6 +27,7 @@ class BlogController extends AbstractController
      * @param PaginatorInterface $paginator
      * @param Request $request
      * @return Response
+     * @IsGranted ("ROLE_USER")
      */
     public function index(ArticleRepository $articleRepository, PaginatorInterface  $paginator, Request $request): Response
     {
@@ -45,6 +47,7 @@ class BlogController extends AbstractController
      * @Route("/article/{slug}-{id}", name="article.show", requirements={"slug": "[a-z0-9\-]*"})
      * @param Article $article
      * @return Response
+     * @IsGranted ("ROLE_USER")
      */
     public function post(Article $article, String $slug, Request  $request, EntityManagerInterface $manager, PaginatorInterface $paginator, CommentRepository $commentRepository): Response
     {
@@ -84,6 +87,7 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/galerie/{slug}-{id}", name="galerie.show", requirements={"slug": "[a-z0-9\-]*"})
+     * @IsGranted ("ROLE_USER")
      */
     public function gallery(Article $article, String $slug){
         if ($article->getSlug() !== $slug){
