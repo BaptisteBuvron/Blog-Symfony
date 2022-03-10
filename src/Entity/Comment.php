@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)
- * @ORM\HasLifecycleCallbacks
+ * @ORM\HasLifecycleCallbacks()
  */
 class Comment
 {
@@ -18,10 +18,6 @@ class Comment
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $author;
 
     /**
      * @ORM\Column(type="datetime")
@@ -40,26 +36,17 @@ class Comment
     private $content;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $valid;
+    private $author;
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(string $author): self
-    {
-        $this->author = $author;
-
-        return $this;
-    }
 
     public function getPublishedAt(): ?\DateTimeInterface
     {
@@ -97,25 +84,24 @@ class Comment
         return $this;
     }
 
-    /**
-     * @ORM\PrePersist()
-     */
-    public function prePersistSetPublishedDate(){
-        $this->publishedAt = new \DateTime('now');
-        if (is_null($this->valid)){
-            $this->valid = false;
-        }
+    public function getAuthor(): ?User
+    {
+        return $this->author;
     }
 
-    public function getValid(): ?bool
+    public function setAuthor(?User $author): self
     {
-        return $this->valid;
-    }
-
-    public function setValid(bool $valid): self
-    {
-        $this->valid = $valid;
+        $this->author = $author;
 
         return $this;
     }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function onPrePersist(): void
+    {
+        $this->publishedAt = new \DateTime();
+    }
+
 }

@@ -27,6 +27,11 @@
     <section id="blog">
         <div class="container">
             <div class="row">
+                {% if articles.count == 0 %}
+
+                    <p class="center">Aucun article.</p>
+
+                {% else %}
 
                 {% for article in articles %}
 
@@ -64,6 +69,7 @@
 
                 {% endfor %}
 
+                {% endif %}
 
             </div>
 

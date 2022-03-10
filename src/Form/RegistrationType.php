@@ -22,7 +22,7 @@ class RegistrationType extends AbstractType
             ->add('email', EmailType::class, $this->getConfiguration("Email", "Votre adresse mail"))
             ->add('password', PasswordType::class, $this->getConfiguration("Mot de passe", "Choisissez un bon mot de passe"))
             ->add('passwordConfirm', PasswordType::class, $this->getConfiguration("Confirmation de votre mot de passe", "Confirmez votre mot de passe"))
-            ->add('codeAuth', TextType::class, $this->getConfiguration("Code", "Entrez le code d'accès", [
+            ->add('codeAuth', PasswordType::class, $this->getConfiguration("Code d'accès", "Entrez le code d'accès", [
                 'mapped' => false
             ]))
 

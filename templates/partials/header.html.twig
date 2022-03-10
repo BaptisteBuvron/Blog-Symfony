@@ -25,6 +25,12 @@
                 {% if custom.facebook %}
                 <li><a href="{{ custom.facebook }}"><img src="/images/facebook.png" alt="Page facebook"></a></li>
                 {% endif %}
+                <li>
+                    {% if app.user %}
+                            <a href="{{ path('account_logout') }}">Déconnexion</a>
+
+                    {% endif %}
+                </li>
 
             </ul>
         </div>

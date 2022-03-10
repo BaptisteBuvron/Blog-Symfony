@@ -845,5 +845,11 @@ img.portrait {
   width:auto;
   height:100%;
   display: block;
+}
 
+
+.form-control{
+  font-size: 18px !important;
+  color: black;
+  font-weight: 500;
 }

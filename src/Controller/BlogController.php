@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Comment;
+use App\Entity\User;
 use App\Form\CommentType;
 use App\Repository\ArticleRepository;
 use App\Repository\CommentRepository;
@@ -59,7 +60,7 @@ class BlogController extends AbstractController
             ],301);
         }
 
-        $comments = $paginator->paginate($commentRepository->findAllValidCommentsQuery($article),
+        $comments = $paginator->paginate($article->getComments(),
             $request->query->getInt('page', 1),
             12
         );
@@ -70,10 +71,12 @@ class BlogController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
+            $user = $this->getUser();
+            $comment->setAuthor($user);
             $comment->setArticle($article);
             $manager->persist($comment);
             $manager->flush();
-            $this->addFlash('success','Votre commentaire a été publié. Il sera rendu public après vérification.');
+            $this->addFlash('success','Votre commentaire a été publié.');
             return $this->redirect($request->getUri());
         }
 

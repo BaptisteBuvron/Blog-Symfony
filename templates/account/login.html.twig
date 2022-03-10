@@ -3,7 +3,13 @@
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
+
     <div class="container" style="padding-bottom: 10px">
+        <div class="row">
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+        </div>
         <h2>Connexion</h2>
 
         <div style="width: 80%; margin: auto">
@@ -15,7 +21,7 @@
                 <div class="form-group">
                     <label class="form-control-label required" for="username">Email</label>
                     <div class="form-widget">
-                        <input type="text" id="username" name="_username" class="form-control" value="{{ last_username|default('') }}" required autofocus autocomplete="username">
+                        <input type="email" id="username" name="_username" class="form-control" value="{{ last_username|default('') }}" required autofocus autocomplete="username">
                     </div>
                 </div>
 
@@ -28,9 +34,13 @@
 
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" onclick="this.form.submit(); this.disabled=true;">Connectez vous</button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" onclick="this.form.submit();">Connectez vous</button>
                 </div>
             </form>
+
+            <div class="form-group">
+                <a href="{{ path('account_register') }}">Pas encore inscrit ?</a>
+            </div>
         </div>
 
     </div>

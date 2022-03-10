@@ -60,6 +60,8 @@ class AccountController extends AbstractController
                 'Votre compte a bien été crée ! Vous pouvez maintenant vous connecter.'
             );
 
+
+
             return $this->redirectToRoute('account_login');
         }
 
