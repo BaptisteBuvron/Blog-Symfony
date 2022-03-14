@@ -21,14 +21,14 @@ Mettre les informations de sa base de donnée dans le fichier .env.local
 composer install
 ```
 
-3) Ckeditor
+3 ) Ckeditor
 ```bash
 php bin/console ckeditor:install
 php bin/console assets:install public
 php bin/console assets:install --symlink
 ```
 
-4) ElFinder
+4 ) ElFinder
 ```bash
 symfony console elfinder:install
 ```
