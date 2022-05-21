@@ -23,12 +23,10 @@ class CommentCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('author', "Nom de l'auteur"),
+            AssociationField::new('author')->autocomplete(),
             TextEditorField::new('content', "Contenu"),
             DateTimeField::new('publishedAt',"Date de publication"),
-            AssociationField::new('article')->autocomplete(),
-            BooleanField::new('valid','Validité')
-
+            AssociationField::new('article')->autocomplete()
         ];
     }
 

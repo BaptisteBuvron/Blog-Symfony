@@ -4,8 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Customisation;
 use App\Entity\User;
+use App\Form\CommentType;
 use App\Form\RegistrationType;
+use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -69,6 +72,32 @@ class AccountController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/edit", name="account_edit")
+     * @IsGranted("ROLE_USER")
+     */
+    public function edit(Request $request, EntityManagerInterface $manager) {
+        $user = $this->getUser();
+        $form = $this->createForm(UserType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $user->setFirstName($form->get('firstName')->getData());
+            $user->setLastName($form->get('lastName')->getData());
+            $user->setEmail($form->get('email')->getData());
+            $manager->persist($user);
+            $manager->flush();
+            $this->addFlash('success','Votre profil a bien été modifié');
+        }
+
+        return $this->render('account/edit.html.twig', [
+            'user' => $user,
+            'form' => $form->createView()
+        ]);
+    }
+
 
     /**
      * @Route("/logout", name="account_logout")
