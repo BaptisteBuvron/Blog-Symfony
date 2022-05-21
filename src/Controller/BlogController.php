@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Comment;
+use App\Entity\User;
 use App\Form\CommentType;
 use App\Repository\ArticleRepository;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,6 +28,7 @@ class BlogController extends AbstractController
      * @param PaginatorInterface $paginator
      * @param Request $request
      * @return Response
+     * @IsGranted ("ROLE_USER")
      */
     public function index(ArticleRepository $articleRepository, PaginatorInterface  $paginator, Request $request): Response
     {
@@ -45,6 +48,7 @@ class BlogController extends AbstractController
      * @Route("/article/{slug}-{id}", name="article.show", requirements={"slug": "[a-z0-9\-]*"})
      * @param Article $article
      * @return Response
+     * @IsGranted ("ROLE_USER")
      */
     public function post(Article $article, String $slug, Request  $request, EntityManagerInterface $manager, PaginatorInterface $paginator, CommentRepository $commentRepository): Response
     {
@@ -56,7 +60,7 @@ class BlogController extends AbstractController
             ],301);
         }
 
-        $comments = $paginator->paginate($commentRepository->findAllValidCommentsQuery($article),
+        $comments = $paginator->paginate($article->getComments(),
             $request->query->getInt('page', 1),
             12
         );
@@ -67,10 +71,12 @@ class BlogController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
+            $user = $this->getUser();
+            $comment->setAuthor($user);
             $comment->setArticle($article);
             $manager->persist($comment);
             $manager->flush();
-            $this->addFlash('success','Votre commentaire a été publié. Il sera rendu public après vérification.');
+            $this->addFlash('success','Votre commentaire a été publié.');
             return $this->redirect($request->getUri());
         }
 
@@ -84,6 +90,7 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/galerie/{slug}-{id}", name="galerie.show", requirements={"slug": "[a-z0-9\-]*"})
+     * @IsGranted ("ROLE_USER")
      */
     public function gallery(Article $article, String $slug){
         if ($article->getSlug() !== $slug){

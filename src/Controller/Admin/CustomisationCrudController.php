@@ -11,12 +11,14 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\HiddenField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class CustomisationCrudController extends AbstractCrudController
@@ -29,29 +31,21 @@ class CustomisationCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-
-        $fields = [
+        return [
             TextField::new('title', "Titre"),
+            TextareaField::new('logoFile', "Le logo")->onlyOnForms()->setFormType(VichImageType::class),
+            ImageField::new('logoName', 'logo')->onlyOnDetail()->onlyOnIndex()->setBasePath('/images/logo')->setTemplatePath('/easyadmin/vich_uploader_logo.html.twig'),
             TextField::new('littleDescription', "Petite description"),
             TextEditorField::new('description', "Description"),
             EmailField::new('email', "Email"),
-            UrlField::new('insta','Instagram'),
-            UrlField::new('facebook','Facebook'),
-            AssociationField::new('presentationArticle')->autocomplete()
-        ];
-        $imageFile = TextareaField::new('imageFile', "L'image")->setFormType(VichImageType::class);
-        $image =  ImageField::new('imageName', 'image')->setBasePath('/images/custom')->setTemplatePath('/easyadmin/vich_uploader_image.html.twig');
-        if ($pageName == Crud::PAGE_INDEX || $pageName == Crud::PAGE_DETAIL) {
-            $fields[] = $image;
-        }
-        else {
-            $fields[] = $imageFile;
-        }
-        array_push($fields,
-            TextareaField::new('imageFile', "L'image")->setFormType(VichImageType::class),
+            UrlField::new('insta', 'Instagram'),
+            UrlField::new('facebook', 'Facebook'),
+            AssociationField::new('presentationArticle')->autocomplete(),
+            ImageField::new('imageName', 'image')->onlyOnDetail()->onlyOnIndex()->setBasePath('/images/custom')->setTemplatePath('/easyadmin/vich_uploader_image.html.twig'),
+            TextareaField::new('imageFile', "L'image")->onlyOnForms()->setFormType(VichImageType::class),
+            TextField::new('codeAuth', "Code d'authentification")->onlyOnForms(),
             BooleanField::new('isActive', "Actif?")
-        );
-        return $fields;
+        ];
     }
 
 }

@@ -2,32 +2,29 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Comment;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
-class CommentCrudController extends AbstractCrudController
+class UserCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Comment::class;
+        return User::class;
     }
-
 
     public function configureFields(string $pageName): iterable
     {
         return [
-            AssociationField::new('author')->autocomplete(),
-            TextEditorField::new('content', "Contenu"),
-            DateTimeField::new('publishedAt',"Date de publication"),
-            AssociationField::new('article')->autocomplete()
+            TextField::new('lastName', "Nom de l'utilisateur"),
+            TextField::new('firstName', "Prénom de l'utilisateur"),
+            TextField::new('email', "Email de l'utilisateur"),
+            ArrayField::new('roles', "Roles de l'utilisateur")->onlyOnForms()
         ];
     }
-
 }

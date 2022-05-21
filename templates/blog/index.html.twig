@@ -27,6 +27,11 @@
     <section id="blog">
         <div class="container">
             <div class="row">
+                {% if articles.count == 0 %}
+
+                    <p class="center">Aucun article.</p>
+
+                {% else %}
 
                 {% for article in articles %}
 
@@ -51,7 +56,7 @@
                                 </h3>
                             </div>
                             <div class="blog-post-format">
-                                <span><img src="images/administrateur-homme.png" class="img-responsive img-circle"> Les {{ custom.title }},</span>
+                                <span><img src="images/administrateur-homme.png" class="img-responsive img-circle">{{ custom.title }},</span>
                                 <span>publié {{ article.publishedAt | ago }}</span>
                             </div>
                             <div class="blog-post-des">
@@ -64,6 +69,7 @@
 
                 {% endfor %}
 
+                {% endif %}
 
             </div>
 

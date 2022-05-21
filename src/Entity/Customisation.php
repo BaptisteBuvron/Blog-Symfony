@@ -24,6 +24,23 @@ class Customisation
     private $id;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    private $logoName;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true, unique=true)
+     */
+    private $codeAuth;
+
+    /**
+     * @var File
+     * @Vich\UploadableField(mapping="custom_logo", fileNameProperty="logoName")
+     * @Assert\File(maxSize="15M", mimeTypes={"image/jpeg","image/jpg","image/png","image/webp"} )
+     */
+    private $logoFile;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $title;
@@ -96,6 +113,58 @@ class Customisation
         $this->title = $title;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLogoName()
+    {
+        return $this->logoName;
+    }
+
+    /**
+     * @param mixed $logoName
+     */
+    public function setLogoName($logoName): void
+    {
+        $this->logoName = $logoName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCodeAuth()
+    {
+        return $this->codeAuth;
+    }
+
+    /**
+     * @param mixed $codeAuth
+     */
+    public function setCodeAuth($codeAuth): void
+    {
+        $this->codeAuth = $codeAuth;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getLogoFile(): ?File
+    {
+        return $this->logoFile;
+    }
+
+    /**
+     * @param File $logoFile
+     */
+    public function setLogoFile(File $logoFile): void
+    {
+        $this->logoFile = $logoFile;
+        //Si aucun autre champ n'est modfifier, l'image ne s'upload pas
+        if ($this->logoFile instanceof UploadedFile) {
+            $this->updatedAt = new \DateTimeImmutable('now');
+        }
     }
 
     public function getLittleDescription(): ?string

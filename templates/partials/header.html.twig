@@ -1,6 +1,6 @@
 
 <!-- Navigation section  -->
-
+{% set current_path = app.request.get('_route') %}
 <div class="navbar navbar-default navbar-static-top" role="navigation">
     <div class="container">
 
@@ -10,11 +10,11 @@
                 <span class="icon icon-bar"></span>
                 <span class="icon icon-bar"></span>
             </button>
-            <a href="{{ path('home') }}" class="navbar-brand"><img src="/images/SGDF_COMPAGNONS_vert_lowres.png" alt=""></a>
+            <a href="{{ path('home') }}" class="navbar-brand"><img src="{{ vich_uploader_asset(custom, 'logoFile') }}" alt=""></a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="{{ path('home') }}">Accueil</a></li>
+                <li class="{% if current_path == 'home' %}active{% endif %}"><a href="{{ path('home') }}">Accueil</a></li>
                 {% if custom.presentationArticle %}
                     <li><a href="{{ path('article.show', {'slug' : custom.presentationArticle.slug , 'id' : custom.presentationArticle.id }) }}" > Présentation du site</a></li>
                 {% endif %}
@@ -25,6 +25,26 @@
                 {% if custom.facebook %}
                 <li><a href="{{ custom.facebook }}"><img src="/images/facebook.png" alt="Page facebook"></a></li>
                 {% endif %}
+                <li>
+                    {% if app.user %}
+                        <li>
+                        <div class="dropdown" style="margin-top: 9px; margin-left: 20px;">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                {{ app.user.fullName?? "Mon compte" }}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li><a href="{{ path('account_edit') }}">Mon profil</a></li>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <li><a href="{{ path('admin') }}">Administration</a></li>
+                                {% endif %}
+                                <li><a href="{{ path('account_logout') }}">Déconnexion</a></li>
+                            </ul>
+                        </div>
+                </li>
+
+                    {% endif %}
+
 
             </ul>
         </div>

@@ -34,7 +34,7 @@
                         </div>
 
                         <div class="blog-post-format">
-                            <span><img src="/images/administrateur-homme.png" class="img-responsive img-circle"> Les {{ custom.title }},</span>
+                            <span><img src="/images/administrateur-homme.png" class="img-responsive img-circle">{{ custom.title }},</span>
                             <span> {{ article.publishedAt | ago }}</span>
                             {% if article.galleries.count > 0 %}
                             <a href="{{ path('galerie.show', {id: article.id , slug: article.slug })}}" class="btn btn-default">Album photo</a>
@@ -45,7 +45,17 @@
 
 
 
+                        <div class="blog-comment-form">
+                            <h3>Laisser un commentaire</h3>
 
+
+                            {{ form_start(form) }}
+                            {{ form_widget(form) }}
+                            <div class="col-md-3 col-sm-4">
+                                    <button type="submit" class="btn" style="background-color: #003a5d; color: white; border-radius: 100px;border: none;" id="submit">Poster votre commentaire</button>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
 
 
                         {% if comments.count > 0 %}
@@ -57,9 +67,16 @@
                                     <img src="/images/default-avatar.png" class="img-responsive img-circle" alt="Blog Image 11">
                                 </div>
                                 <div class="media-body">
-                                    <h3 class="media-heading">{{ comment.author }}</h3>
+                                    <h3 class="media-heading">{{ comment.author.fullname }}</h3>
                                     <span>{{ comment.publishedAt | ago }}</span>
                                     <p>{{ comment.content | raw }}</p>
+                                    {% if comment.author ==  app.user or is_granted('ROLE_ADMIN') %}
+                                    <form action="{{ path('comment.delete', {id: comment.id}) }}" method="post">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
+                                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                                    </form>
+                                    {% endif %}
                                 </div>
                             </div>
                             {% endfor %}
@@ -69,17 +86,7 @@
                             {{ knp_pagination_render(comments) }}
                         </div>
 
-                        <div class="blog-comment-form">
-                            <h3>Laisse un commentaire</h3>
 
-
-                            {{ form_start(form) }}
-                            {{ form_widget(form) }}
-                            <div class="col-md-3 col-sm-4">
-                                    <button type="submit" class="btn" style="background-color: #003a5d; color: white; border-radius: 100px;border: none;" id="submit">Poster votre commentaire</button>
-                            </div>
-                            {{ form_end(form) }}
-                        </div>
                     </div>
                 </div>
             </div>

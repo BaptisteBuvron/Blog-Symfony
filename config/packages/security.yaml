@@ -2,13 +2,29 @@ security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     encoders:
         Symfony\Component\Security\Core\User\User: bcrypt
+        App\Entity\User:
+            algorithm: auto
+
+
     providers:
+        # used to reload user from session & other features (e.g. switch_user)
+        chain_provider:
+            chain:
+                providers: [ app_user_provider, users_in_memory ]
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+
         users_in_memory:
             memory:
                 users:
-                    admin:
-                        password : $2y$13$KwWsuCktYVp3vKWQ9kn67eXlvWwfSnf49M4V2lWqBqt0qlbzy/V5W
-                        roles: ['ROLE_USER','ROLE_ADMIN']
+                    admin@admin.fr:
+                        password:  $2a$12$16D71XXmWQJN6a4R3k7WFO67H8xb.Ab3Oun.Mqvg.4r7wZjjJmQry
+                        roles: [ 'ROLE_USER','ROLE_ADMIN' ]
+
+
+        # used to reload user from session & other features (e.g. switch_user)
 
     firewalls:
         dev:
@@ -17,19 +33,18 @@ security:
         main:
             anonymous: true
             lazy: true
-            provider: users_in_memory
+            provider: chain_provider
             form_login:
                 login_path: account_login
                 check_path: account_login
                 always_use_default_target_path: true
-                default_target_path: admin
+                default_target_path: home
             logout:
                 path: account_logout
                 target: account_login
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
-
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
 
