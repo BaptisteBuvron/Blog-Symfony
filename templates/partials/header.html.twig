@@ -1,56 +1,51 @@
 
 <!-- Navigation section  -->
 {% set current_path = app.request.get('_route') %}
-<div class="navbar navbar-default navbar-static-top" role="navigation">
+<nav class="navbar navbar-header nav navbar-expand-lg">
     <div class="container">
-
-        <div class="navbar-header">
-            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon icon-bar"></span>
-                <span class="icon icon-bar"></span>
-                <span class="icon icon-bar"></span>
-            </button>
-            <a href="{{ path('home') }}" class="navbar-brand"><img src="{{ vich_uploader_asset(custom, 'logoFile') }}" alt=""></a>
-        </div>
-        <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="{% if current_path == 'home' %}active{% endif %}"><a href="{{ path('home') }}">Accueil</a></li>
+        <a href="{{ path('home') }}" class="navbar-brand"><img src="{{ vich_uploader_asset(custom, 'logoFile') }}" class="align-middle" width="5%" height="auto"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="{% if current_path == 'home' %}active{% endif %} nav-item"><a class="nav-link" href="{{ path('home') }}">Accueil</a></li>
                 {% if custom.presentationArticle %}
-                    <li><a href="{{ path('article.show', {'slug' : custom.presentationArticle.slug , 'id' : custom.presentationArticle.id }) }}" > Présentation du site</a></li>
+                    <li class="nav-item"><a href="{{ path('article.show', {'slug' : custom.presentationArticle.slug , 'id' : custom.presentationArticle.id }) }}" class="nav-link" > Présentation du site</a></li>
                 {% endif %}
-                <li><a class="go-down" href="#">Contact</a></li>
+                <li class="nav-item"><a class="go-down nav-link" href="#">Contact</a></li>
                 {% if custom.insta %}
-                <li><a href="{{ custom.insta }}"><img src="/images/insta.png" alt="Compte instagram"></a></li>
+                    <li class="nav-item"><a href="{{ custom.insta }}" class="nav-link"><img src="/images/insta.png" alt="Compte instagram"></a></li>
                 {% endif %}
                 {% if custom.facebook %}
-                <li><a href="{{ custom.facebook }}"><img src="/images/facebook.png" alt="Page facebook"></a></li>
+                    <li class="nav-item"><a href="{{ custom.facebook }}" class="nav-link"><img src="/images/facebook.png" alt="Page facebook"></a></li>
                 {% endif %}
-                <li>
                     {% if app.user %}
-                        <li>
-                        <div class="dropdown" style="margin-top: 9px; margin-left: 20px;">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                {{ app.user.fullName?? "Mon compte" }}
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <li><a href="{{ path('account_edit') }}">Mon profil</a></li>
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <li><a href="{{ path('admin') }}">Administration</a></li>
-                                {% endif %}
-                                <li><a href="{{ path('account_logout') }}">Déconnexion</a></li>
-                            </ul>
-                        </div>
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ app.user.fullName?? "Mon compte" }}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a href="{{ path('account_edit') }}" class="dropdown-item">Mon profil</a></li>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li><a href="{{ path('admin') }}" class="dropdown-item">Administration</a></li>
+                            {% endif %}
+                            <li><a href="{{ path('account_logout') }}" class="dropdown-item">Déconnexion</a></li>
+                        </ul>
+                    </div>
                 </li>
 
-                    {% endif %}
+                {% endif %}
 
 
             </ul>
         </div>
 
     </div>
-</div>
+</nav>
+
 {% for label, messages in app.flashes %}
     <div class="container">
         <div class="alert alert-{{ label }}">
