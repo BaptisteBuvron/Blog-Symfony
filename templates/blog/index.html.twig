@@ -6,12 +6,11 @@
 
     <!-- Home Section -->
 
-    <section id="home" class="main-home parallax-section" style="background: url({{ vich_uploader_asset(custom, 'imageFile') }}) no-repeat;">
+    <section id="home" class="main-home parallax-section" style="background: url({{ vich_uploader_asset(custom, 'imageFile') }}) no-repeat center;">
         <div class="overlay"></div>
         <div id="particles-js"></div>
         <div class="container">
-            <div class="row">
-
+            <div class="row position-relative">
                 <div class="col-md-12 col-sm-12">
                     <h1>{{ custom.title }}</h1>
                     <h4>{{ custom.littleDescription }}</h4>
@@ -32,10 +31,10 @@
                     <p class="center">Aucun article.</p>
 
                 {% else %}
+                    <div class="col-md-offset-1 col-md-10 col-sm-12 m-auto">
 
                 {% for article in articles %}
 
-                    <div class="col-md-offset-1 col-md-10 col-sm-12">
 
 
                         <div class="blog-post-thumb">
@@ -43,9 +42,9 @@
                                 <a href="{{ path('article.show', {slug : article.slug, id : article.id}) }}">
                                     {% if article.imageName %}
                                         <img src="{{ vich_uploader_asset(article, 'imageFile') }}"
-                                             class="img-responsive center" alt="Blog Image">
+                                             class="img-responsive w-100" alt="Blog Image">
                                     {% else %}
-                                        <img src="/images/articles/default.jpg" class="img-responsive center"
+                                        <img src="/images/articles/default.jpg" class="img-responsive w-100"
                                              alt="Blog Image">
                                     {% endif %}
                                 </a>
@@ -62,12 +61,12 @@
                             <div class="blog-post-des">
                                 <p>{{ article.introduction | raw }}</p>
                                 <a href="{{ path('article.show', {slug : article.slug, id : article.id}) }}"
-                                   class="btn btn-default">Lire la suite</a>
+                                   class="btn btn-light m-auto d-block w-50">Lire la suite</a>
                             </div>
                         </div>
-                    </div>
 
                 {% endfor %}
+                    </div>
 
                 {% endif %}
 

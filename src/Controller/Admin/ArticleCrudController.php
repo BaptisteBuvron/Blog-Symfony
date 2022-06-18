@@ -32,7 +32,6 @@ class ArticleCrudController extends AbstractCrudController
     {
         $imageFile = TextareaField::new('imageFile', "L'image")->setFormType(VichImageType::class);
         $image =  ImageField::new('imageName', 'image')->setBasePath('/images/article')->setTemplatePath('/easyadmin/vich_uploader_image.html.twig');
-       //TODO FIX CKEDITOR
         $fiedls = [
             NumberField::new('id')->onlyOnIndex(),
             TextField::new('title','Titre'),

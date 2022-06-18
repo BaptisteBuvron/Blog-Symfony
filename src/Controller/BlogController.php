@@ -60,6 +60,11 @@ class BlogController extends AbstractController
             ],301);
         }
 
+        if (!$article->getIsPublished() && !$this->isGranted('ROLE_ADMIN')){
+            $this->addFlash('warning', 'Cet article n\'est pas publié');
+            return $this->redirectToRoute('home');
+        }
+
         $comments = $paginator->paginate($article->getComments(),
             $request->query->getInt('page', 1),
             12
@@ -100,6 +105,12 @@ class BlogController extends AbstractController
                 'slug' => $article->getSlug()
             ],301);
         }
+
+        if (!$article->getIsPublished() && !$this->isGranted('ROLE_ADMIN')){
+            $this->addFlash('warning', 'Cet article n\'est pas publié');
+            return $this->redirectToRoute('home');
+        }
+
         if ($article->getGalleries()->isEmpty()){
             return $this->redirectToRoute('article.show',['id' => $article->getId(), 'slug' => $article->getSlug()],301);
         }
