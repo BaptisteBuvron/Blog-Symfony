@@ -51,6 +51,13 @@
 
 {% block body %}
     <div class="container">
+        <div class="row">
+            <div class="d-flex justify-content-around align-items-center">
+                <h1>{{ article.title }}</h1>
+                <a class="btn btn-primary" href="{{ path('article.show', {slug : article.slug, id : article.id}) }}">Retour à l'article</a>
+
+            </div>
+
 
             <div id="lightGallery">
                 {% for image in article.galleries %}
@@ -62,6 +69,7 @@
                 {% endfor %}
 
             </div>
+        </div>
 
 
     </div>

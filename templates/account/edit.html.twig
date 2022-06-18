@@ -2,14 +2,15 @@
 
 {% block body %}
     <div class="container" style="padding-bottom: 10px">
-        <h3>Mon profil</h3>
+        <h3>Mon profil {{ user.fullname }}</h3>
         {{ form_start(form) }}
         {{ form_widget(form) }}
-        <button type="submit" class="btn btn-info" style="font-size: 16px !important;" >Modifier</button>
+        <div class="form-group text-center mt-2">
+            <button type="submit" class="btn btn-primary btn-lg btn-block w-100" onclick="this.form.submit();">
+                Modifier
+            </button>
+        </div>
         {{ form_end(form) }}
-
-        <hr>
-        <h3>Modifier le mot de passe</h3>
     </div>
 {% endblock %}
 

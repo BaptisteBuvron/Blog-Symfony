@@ -25,7 +25,7 @@
         <div class="container">
             <div class="row">
 
-                <div class="col-md-offset-1 col-md-10 col-sm-12">
+                <div class="col-md-offset-1 col-md-10 col-sm-12 m-auto">
                     <div class="blog-single-post-thumb">
 
 
@@ -37,7 +37,7 @@
                             <span><img src="/images/administrateur-homme.png" class="img-responsive img-circle">{{ custom.title }},</span>
                             <span> {{ article.publishedAt | ago }}</span>
                             {% if article.galleries.count > 0 %}
-                            <a href="{{ path('galerie.show', {id: article.id , slug: article.slug })}}" class="btn btn-default">Album photo</a>
+                            <a href="{{ path('galerie.show', {id: article.id , slug: article.slug })}}" class="btn btn-primary">Album photo</a>
                             {% endif %}
                         </div>
 
@@ -52,32 +52,38 @@
                             {{ form_start(form) }}
                             {{ form_widget(form) }}
                             <div class="col-md-3 col-sm-4">
-                                    <button type="submit" class="btn" style="background-color: #003a5d; color: white; border-radius: 100px;border: none;" id="submit">Poster votre commentaire</button>
+                                    <button type="submit" class="btn btn-primary" id="submit">Poster votre commentaire</button>
                             </div>
                             {{ form_end(form) }}
                         </div>
 
 
                         {% if comments.count > 0 %}
-                        <div class="blog-comment">
+                        <div class="blog-comment mt-2">
                             <h3>Commentaires</h3>
                             {% for comment in comments %}
-                            <div class="media">
-                                <div class="media-object pull-left">
-                                    <img src="/images/default-avatar.png" class="img-responsive img-circle" alt="Blog Image 11">
-                                </div>
-                                <div class="media-body">
-                                    <h3 class="media-heading">{{ comment.author.fullname }}</h3>
-                                    <span>{{ comment.publishedAt | ago }}</span>
+                            <div class="d-flex justify-content-between align-items-center flex-wrap mt-3">
+                            <div class="d-flex align-items-center">
+
+
+                                <img src="/images/default-avatar.png" class="img-responsive rounded-circle" width="82px" height="82px" alt="Blog Image 11">
+                                 <div class="ms-2">
+                                    <h5 class="d-inline">{{ comment.author.fullname }}</h5>
+                                    <span class="d-inline ms-1">{{ comment.publishedAt | ago }}</span>
                                     <p>{{ comment.content | raw }}</p>
-                                    {% if comment.author ==  app.user or is_granted('ROLE_ADMIN') %}
-                                    <form action="{{ path('comment.delete', {id: comment.id}) }}" method="post">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
-                                        <button type="submit" class="btn btn-danger">Supprimer</button>
-                                    </form>
-                                    {% endif %}
+
                                 </div>
+                             </div>
+                             <div>
+                             {% if comment.author ==  app.user or is_granted('ROLE_ADMIN') %}
+                                            <form action="{{ path('comment.delete', {id: comment.id}) }}" method="post">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
+                                                <button type="submit" class="btn btn-danger">Supprimer</button>
+                                            </form>
+                                        {% endif %}
+
+</div>
                             </div>
                             {% endfor %}
                         </div>
@@ -93,4 +99,12 @@
             </div>
     </section>
 
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+
+    </script>
 {% endblock %}

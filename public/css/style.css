@@ -122,9 +122,6 @@ a:hover, a:active, a:focus {
   background-attachment: fixed !important;
   background-size: cover !important;
   overflow: hidden;
-  background-position: center !important;
-
-
 }
 
 
@@ -764,4 +761,56 @@ img.portrait {
   font-size: 18px !important;
   color: black;
   font-weight: 500;
+}
+
+
+/*Style SGDF*/
+
+.btn-primary{
+  background-color: #003a5d;
+  color: white !important;
+  font-size: 1rem;
+  line-height: 1.4;
+  border-radius: 6px;
+}
+
+.btn-primary:hover {
+  background-color: #0b2b40;
+  color: white;
+}
+
+
+
+.btn-primary:active, .btn-primary:focus {
+  box-shadow: 0 2px 4px 0 #838ED9;
+  color: white;
+}
+
+
+h5 {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.375rem;
+  line-height: 25px;
+}
+
+
+@media screen and (max-width: 1000px) {
+  #logoLogin {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    max-width: 45%;
+  }
+
+  .content-form {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  #logoLogin {
+    margin-top: 30px;
+    margin-bottom: 40px;
+    max-width: 50%;
+  }
 }

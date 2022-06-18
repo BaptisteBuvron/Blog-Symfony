@@ -1,23 +1,27 @@
 {% set custom = get_customisation() %}
+{% set current_path = app.request.get('_route') %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/images/favicon-96x96.png') }}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/images/favicon-96x96.png') }}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <META NAME="TITLE" CONTENT="{{ custom.title }}">
     <META NAME="AUTHOR" CONTENT="Baptiste BUVRON">
     <META NAME="DESCRIPTION" CONTENT="{{ custom.description }}">
-    <META NAME="KEYWORDS" CONTENT="SGDF, scout, compagnon, solidarité, action, humanitaire, scoutisme, scoutes et guides de france, scouting">
+    <META NAME="KEYWORDS"
+          CONTENT="SGDF, scout, compagnon, solidarité, action, humanitaire, scoutisme, scoutes et guides de france, scouting">
     <META NAME="OWNER" CONTENT="{{ custom.title }}">
-    <META NAME="ROBOTS" CONTENT="index,all">
+    <META NAME="ROBOTS" CONTENT="noindex, nofollow, none, noarchive, nositelinkssearchbox, nosnippet, noimageindex">
     <META NAME="Reply-to" CONTENT="{{ custom.email }}">
     <META NAME="REVISIT-AFTER" CONTENT="10">
     <title>{% block title %}{{ custom.title }}{% endblock %}</title>
     {% block stylesheets %}
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+              crossorigin="anonymous">
 
         <link rel="stylesheet" href="/css/font-awesome.min.css">
 
@@ -38,13 +42,18 @@
         <span class="sk-inner-circle"></span>
     </div>
 </div>
-{% include 'partials/header.html.twig' %}
+{% if current_path not in ['account_login', 'account_register'] %}
+    {% include 'partials/header.html.twig' %}
+{% endif %}
 {% block body %}
 {% endblock %}
+{% if current_path not in ['account_login', 'account_register'] %}
 {% include 'partials/footer.html.twig' %}
-
+{% endif %}
 {% block javascript %}
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
 <script src="/js/jquery.js"></script>
 <script src="/js/particles.min.js"></script>
 <script src="/js/app.js"></script>

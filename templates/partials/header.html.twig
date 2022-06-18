@@ -1,6 +1,7 @@
 
 <!-- Navigation section  -->
 {% set current_path = app.request.get('_route') %}
+{% block header %}
 <nav class="navbar navbar-header nav navbar-expand-lg">
     <div class="container">
         <a href="{{ path('home') }}" class="navbar-brand"><img src="{{ vich_uploader_asset(custom, 'logoFile') }}" class="align-middle" width="5%" height="auto"></a>
@@ -55,3 +56,4 @@
         </div>
     </div>
 {% endfor %}
+{% endblock header %}

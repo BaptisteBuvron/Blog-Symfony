@@ -2,46 +2,66 @@
 
 {% block title %}Connexion{% endblock %}
 
-{% block body %}
 
-    <div class="container" style="padding-bottom: 10px">
-        <div class="row">
+{% block body %}
+    <div class="container-fluid d-flex">
+
+    <div class="col-lg-4 col-xs-12 m-auto pe-2">
+        {% for label, messages in app.flashes %}
+            <div class="container">
+                <div class="alert alert-{{ label }}">
+                    {% for message in messages %}
+                        <p>{{ message | raw }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
             {% if error %}
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
-        </div>
-        <h2>Connexion</h2>
+            <img class="img-fluid d-block m-auto h-auto" id="logoLogin" src="{{ asset('images/SGDF_logo_RVB_vertical.png') }}" alt="Logo SGDF">
+            <h5 class="m-auto text-center">Connexion</h5>
 
-        <div style="width: 80%; margin: auto">
+
             <form method="post" action="{{ action|default('') }}">
                 {% if csrf_token_intention|default(false) %}
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token(csrf_token_intention) }}">
+                    <input type="d-none" name="_csrf_token" value="{{ csrf_token(csrf_token_intention) }}">
                 {% endif %}
 
                 <div class="form-group">
                     <label class="form-control-label required" for="username">Email</label>
                     <div class="form-widget">
-                        <input type="email" id="username" name="_username" class="form-control" value="{{ last_username|default('') }}" required autofocus autocomplete="username">
+                        <input type="email" id="username" name="_username" class="form-control"
+                               value="{{ last_username|default('') }}" required autofocus autocomplete="username">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="form-control-label required" for="password">Mot de passe</label>
                     <div class="form-widget">
-                        <input type="password" id="password" name="_password" class="form-control" required autocomplete="current-password">
+                        <input type="password" id="password" name="_password" class="form-control" required
+                               autocomplete="current-password">
                     </div>
                 </div>
 
 
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" onclick="this.form.submit();">Connectez vous</button>
+                <div class="form-group text-center mt-2">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block w-100" onclick="this.form.submit();">
+                        Connectez vous
+                    </button>
                 </div>
             </form>
 
             <div class="form-group">
                 <a href="{{ path('account_register') }}">Pas encore inscrit ?</a>
             </div>
-        </div>
+
 
     </div>
+    <div class="col-lg-9 d-none d-lg-block vh-100 min-vh-100" style="position: relative; background-image: url({{ asset('/images/login.jpg') }});background-attachment: local;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;"></div>
+    </div>
+
 {% endblock %}

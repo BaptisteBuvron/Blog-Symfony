@@ -3,15 +3,44 @@
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
-    <div class="container" style="padding-bottom: 10px">
-        <h2>Inscrivez vous sur notre site</h2>
 
-        <div style="width: 80%; margin: auto">
+    <div class="container-fluid d-flex">
+
+        <div class="col-lg-4 col-xs-12 m-auto pe-2">
+            {% for label, messages in app.flashes %}
+                <div class="container">
+                    <div class="alert alert-{{ label }}">
+                        {% for message in messages %}
+                            <p>{{ message | raw }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+
+            <img class="img-fluid d-block m-auto h-auto" id="logoLogin"
+                 src="{{ asset('images/SGDF_logo_RVB_vertical.png') }}" alt="Logo SGDF">
+            <h5 class="m-auto text-center">Inscription</h5>
+
+
             {{ form_start(form) }}
             {{ form_widget(form) }}
-            <button type="submit" class="btn btn-info" style="font-size: 16px !important;" >Confirmez l'inscription</button>
-            {{ form_end(form) }}
-        </div>
+            <div class="form-group text-center mt-2">
+                <button type="submit" class="btn btn-primary btn-lg btn-block w-100">S'inscrire</button>
+            </div>
 
+            <div class="form-group">
+                <a href="{{ path('account_login') }}">Déjà inscrit ?</a>
+            </div>
+            {{ form_end(form) }}
+
+
+        </div>
+        <div class="col-lg-9 d-none d-lg-block vh-100 min-vh-100 "
+             style="position: relative; background-image: url({{ asset('/images/login.jpg') }});background-attachment: local;
+                     background-position: center;
+                     background-size: cover;
+                     background-repeat: no-repeat;">
+        </div>
     </div>
+
 {% endblock %}
