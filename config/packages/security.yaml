@@ -10,18 +10,18 @@ security:
         # used to reload user from session & other features (e.g. switch_user)
         chain_provider:
             chain:
-                providers: [ app_user_provider ]
+                providers: [ app_user_provider, users_in_memory ]
         app_user_provider:
             entity:
                 class: App\Entity\User
                 property: email
 
-#        users_in_memory:
-#            memory:
-#                users:
-#                    admin@admin.fr:
-#                        password:  $2a$12$16D71XXmWQJN6a4R3k7WFO67H8xb.Ab3Oun.Mqvg.4r7wZjjJmQry
-#                        roles: [ 'ROLE_USER','ROLE_ADMIN' ]
+        users_in_memory:
+            memory:
+                users:
+                    admin@admin.fr:
+                        password:  $2a$12$16D71XXmWQJN6a4R3k7WFO67H8xb.Ab3Oun.Mqvg.4r7wZjjJmQry
+                        roles: [ 'ROLE_USER','ROLE_ADMIN' ]
 
 
         # used to reload user from session & other features (e.g. switch_user)

@@ -41,7 +41,7 @@
                             <div class="blog-post-image">
                                 <a href="{{ path('article.show', {slug : article.slug, id : article.id}) }}">
                                     {% if article.imageName %}
-                                        <img src="{{ vich_uploader_asset(article, 'imageFile') }}"
+                                        <img src="{{ vich_uploader_asset(article, 'imageFile') | imagine_filter('my_thumb') }}"
                                              class="img-responsive w-100" alt="Blog Image">
                                     {% else %}
                                         <img src="/images/articles/default.jpg" class="img-responsive w-100"
@@ -55,7 +55,7 @@
                                 </h3>
                             </div>
                             <div class="blog-post-format">
-                                <span><img src="images/administrateur-homme.png" class="img-responsive img-circle">{{ custom.title }},</span>
+                                <span><img src="images/SGDF_symbole_RVB.png" class="img-responsive img-circle">{{ custom.title }},</span>
                                 <span>publié {{ article.publishedAt | ago }}</span>
                             </div>
                             <div class="blog-post-des">

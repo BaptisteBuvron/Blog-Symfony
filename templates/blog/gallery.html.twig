@@ -31,7 +31,6 @@
         });
             console.log($('#lightGallery img'));
             $('#lightGallery img').each(function() { //you need to put this inside the window.onload-function (not document.ready), otherwise the image dimensions won't be available yet
-
                 if (this.width / this.height >= 1) {
                     $(this).addClass('landscape');
                 } else {
@@ -59,11 +58,11 @@
             </div>
 
 
-            <div id="lightGallery">
+            <div id="lightGallery" class="m-2">
                 {% for image in article.galleries %}
-                    <a href="{{ vich_uploader_asset(image, 'imageFile') }}"
+                    <a class="m-2" href="{{ vich_uploader_asset(image, 'imageFile') }}"
                        data-sub-html="<h4>{{ image.title }}</h4><p>{{ image.caption }}</p>">
-                        <img src="{{ vich_uploader_asset(image, 'imageFile') }}" alt="">
+                        <img class="img-fluid" src="{{ vich_uploader_asset(image, 'imageFile') | imagine_filter('my_thumb') }}" alt="">
                     </a>
 
                 {% endfor %}

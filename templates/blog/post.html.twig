@@ -6,7 +6,7 @@
 
     <!-- Home Section -->
 
-    <section id="home" class="main-single-post parallax-section" style="background: url({% if article.imageName %} {{ vich_uploader_asset(article, 'imageFile')}} {% else %} '/images/home-bg.jpg' {% endif %}">
+    <section id="home" class="main-single-post parallax-section" style="background: url({% if article.imageName %} {{ vich_uploader_asset(article, 'imageFile') | imagine_filter('my_thumb')}} {% else %} '/images/home-bg.jpg' {% endif %}">
         <div class="overlay"></div>
         <div class="container">
             <div class="row">
@@ -34,7 +34,7 @@
                         </div>
 
                         <div class="blog-post-format">
-                            <span><img src="/images/administrateur-homme.png" class="img-responsive img-circle">{{ custom.title }},</span>
+                            <span><img src="/images/SGDF_symbole_RVB.png" class="img-responsive img-circle">{{ custom.title }},</span>
                             <span> {{ article.publishedAt | ago }}</span>
                             {% if article.galleries.count > 0 %}
                             <a href="{{ path('galerie.show', {id: article.id , slug: article.slug })}}" class="btn btn-primary">Album photo</a>

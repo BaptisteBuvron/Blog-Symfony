@@ -1,0 +1,17 @@
+liip_imagine :
+    resolvers :
+        default :
+            web_path : ~
+    loaders:
+        default:
+            filesystem:
+                data_root: "%kernel.project_dir%/secure/"
+    filter_sets :
+        cache : ~
+        # the name of the "filter set"
+        my_thumb :
+            # adjust the image quality to 75%
+            quality : 50
+            # list of transformations to apply (the "filters")
+            filters :
+                auto_rotate: ~
