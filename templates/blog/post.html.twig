@@ -47,6 +47,7 @@
 
                         <div class="blog-comment-form">
                             <h3>Laisser un commentaire</h3>
+                            {% if app.user %}
 
 
                             {{ form_start(form) }}
@@ -55,6 +56,9 @@
                                     <button type="submit" class="btn btn-primary" id="submit">Poster votre commentaire</button>
                             </div>
                             {{ form_end(form) }}
+                            {% else %}
+                            <a href="{{ path('account_login') }}" class="btn btn-primary">Connectez-vous pour laisser un commentaire</a>
+                            {% endif %}
                         </div>
 
 

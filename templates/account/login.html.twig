@@ -19,7 +19,9 @@
             {% if error %}
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
-            <img class="img-fluid d-block m-auto h-auto" id="logoLogin" src="{{ asset('images/SGDF_logo_RVB_vertical.png') }}" alt="Logo SGDF">
+        <a href="{{ path('home') }}" class="btn btn-primary">Continuer sans compte</a>
+
+        <img class="img-fluid d-block m-auto h-auto" id="logoLogin" src="{{ asset('images/SGDF_logo_RVB_vertical.png') }}" alt="Logo SGDF">
             <h5 class="m-auto text-center">Connexion</h5>
 
 

@@ -48,12 +48,6 @@ class AccountController extends AbstractController
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $customisationRepository = $manager->getRepository(Customisation::class);
-            $customisation =  $customisationRepository->findOneBy(['codeAuth' => $form->get('codeAuth')->getData(), 'isActive' => true]);
-            if (!$customisation) {
-                $this->addFlash('danger', 'Code d\'activation invalide');
-                return $this->redirectToRoute('account_register');
-            }
             $hash = $passwordHasher->hashPassword($user, $form->get('password')->getData());
             $user->setPassword($hash);
             $manager->persist($user);
