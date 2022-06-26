@@ -58,7 +58,7 @@
             </div>
 
 
-            <div id="lightGallery" class="m-2">
+            <div id="lightGallery" class="mt-2 mb-2">
                 {% for image in article.galleries %}
                     <a class="m-2" href="{{ vich_uploader_asset(image, 'imageFile') }}"
                        data-sub-html="<h4>{{ image.title }}</h4><p>{{ image.caption }}</p>">
