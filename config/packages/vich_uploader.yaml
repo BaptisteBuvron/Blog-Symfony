@@ -7,7 +7,7 @@ vich_uploader:
             upload_destination: '%kernel.project_dir%/public/images/articles'
             namer : Vich\UploaderBundle\Naming\UniqidNamer
         gallery_image:
-            uri_prefix: /image/galleries
+            uri_prefix: /images/galleries
             upload_destination: '%kernel.project_dir%/public/images/galleries'
             namer: Vich\UploaderBundle\Naming\UniqidNamer
         custom_image:
