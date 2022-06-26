@@ -2,10 +2,6 @@ liip_imagine :
     resolvers :
         default :
             web_path : ~
-    loaders:
-        default:
-            filesystem:
-                data_root: "%kernel.project_dir%/secure/"
     filter_sets :
         cache : ~
         # the name of the "filter set"
