@@ -39,12 +39,12 @@
 
                         <div class="blog-post-thumb">
                             <div class="blog-post-image">
-                                <a href="{{ path('article.show', {slug : article.slug, id : article.id}) }}">
+                                <a class="m-auto text-center d-block" href="{{ path('article.show', {slug : article.slug, id : article.id}) }}">
                                     {% if article.imageName %}
                                         <img src="{{ vich_uploader_asset(article, 'imageFile') | imagine_filter('my_thumb') }}"
-                                             class="img-responsive w-100" alt="Blog Image">
+                                             class="img-fluid w-75" alt="Blog Image">
                                     {% else %}
-                                        <img src="/images/articles/default.jpg" class="img-responsive w-100"
+                                        <img src="/images/articles/default.jpg" class="img-responsive w-75"
                                              alt="Blog Image">
                                     {% endif %}
                                 </a>

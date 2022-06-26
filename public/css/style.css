@@ -108,7 +108,7 @@ a:hover, a:active, a:focus {
 }
 
 .overlay {
-  background: rgba(0,0,0,0.7 );
+  background: rgba(0,0,0,0.4 );
   width: 100%;
   height: 100vh;
   position: absolute;
@@ -812,5 +812,11 @@ h5 {
     margin-top: 30px;
     margin-bottom: 40px;
     max-width: 50%;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .blog-post-thumb .blog-post-image img {
+    width: 100% !important;
   }
 }
